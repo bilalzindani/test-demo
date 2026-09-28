@@ -1,5 +1,7 @@
 # Data Project Template
 
+> **New:** [`nosh-showreel/`](nosh-showreel/) — a 60-second motion-graphics showreel for [noshaiautomation.com](https://noshaiautomation.com), built in code with Remotion (rendered video in `nosh-showreel/renders/`).
+
 <a target="_blank" href="https://datalumina.com/">
     <img src="https://img.shields.io/badge/Datalumina-Project%20Template-2856f7" alt="Datalumina Project" />
 </a>

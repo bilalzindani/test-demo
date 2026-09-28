@@ -1,0 +1,8 @@
+node_modules
+dist
+out
+.DS_Store
+.env
+
+# the repo-root .gitignore (Python template) ignores every lib/ directory
+!src/lib/
