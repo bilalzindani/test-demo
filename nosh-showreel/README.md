@@ -2,7 +2,15 @@
 
 A one-minute motion-graphics showreel for **[noshaiautomation.com](https://noshaiautomation.com)**, built entirely in code with [Remotion](https://www.remotion.dev) (React → video). Every frame is a pure function of time, so the whole piece is re-renderable, editable and re-brandable.
 
-**Output:** `out/nosh-ai-automation-showreel.mp4` · 1920×1080 · 30 fps · 60 s · H.264 + AAC
+**Watch:** [`renders/nosh-ai-automation-showreel.mp4`](renders/nosh-ai-automation-showreel.mp4) — 1920×1080 · 30 fps · 60 s · H.264 (BT.709) + AAC 256k · 27 MB · −14 LUFS
+
+![Poster](renders/poster.jpg)
+
+<details><summary>Storyboard — one frame every 2.5 s</summary>
+
+![Storyboard](renders/storyboard.jpg)
+
+</details>
 
 ---
 
@@ -46,6 +54,8 @@ The track was chosen by analysis, not guesswork (`scripts/analyze_music.py`): 12
 
 **Master:** −14 LUFS integrated, ≤ −1.2 dBFS peak (look-ahead limiter), 48 kHz.
 
+**Delivery encode** (`scripts/deliver.sh`): the film grain is fresh noise every frame, so Remotion's CRF-16 master is ~93 Mbps. The delivery file is re-encoded with x264 CRF 27 / `tune=grain` (≈3.6 Mbps, visually indistinguishable at 100% crop), converted to limited-range BT.709, and its audio is re-muxed straight from the WAV — the master's AAC stream carries 42.7 ms of uncompensated encoder priming; the delivery file measures 0.00 ms offset against the source by cross-correlation.
+
 ---
 
 ## Project layout
@@ -59,7 +69,8 @@ src/
   components/                   HUD/grain, kinetic type, wordmark, voice orb, phones, stripes, whip…
   scenes/S01…S10                one file per chapter
 audio/generate_soundtrack.py    music edit + SFX synth + master → public/audio/soundtrack.wav
-scripts/                        cue export, contact-sheet review tool, music analysis, grain textures
+scripts/                        cue export, contact-sheet review tool, music analysis, grain textures, delivery encode
+renders/                        final video, poster frame, storyboard
 public/                         fonts (OFL), grain tiles, rendered soundtrack
 ```
 
@@ -68,7 +79,8 @@ public/                         fonts (OFL), grain tiles, rendered soundtrack
 ```bash
 npm install
 npm run dev                         # Remotion Studio (scrub the timeline)
-npm run render                      # → out/nosh-ai-automation-showreel.mp4
+npm run render                      # master → out/nosh-ai-automation-showreel.mp4 (~700 MB, CRF 16)
+bash scripts/deliver.sh             # delivery → renders/nosh-ai-automation-showreel.mp4 (~27 MB)
 
 # rebuild the soundtrack after changing timings
 node scripts/export-cues.mjs
