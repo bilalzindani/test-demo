@@ -74,18 +74,19 @@ export const VUGC: React.FC = () => {
   const winnerIdx: number = 2;
   const win = f >= UGCV.winner;
 
+  // burned-in captions stop short of the right rail, like real ones
   const cap = (() => {
     if (!speaking) return null;
     const words = speaking.text.split(" ");
     const span = (speaking.end - speaking.start) * 0.9;
     return (
-      <div style={{ position: "absolute", left: 30, right: 30, top: "58%", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 12px" }}>
+      <div style={{ position: "absolute", left: 26, right: 82, top: "58%", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 10px" }}>
         {words.map((w, i) => {
           const at = speaking.start + (i * span) / words.length;
           const on = f >= at;
           const active = on && f < at + span / words.length;
           return (
-            <span key={i} style={{ fontFamily: F.display, fontVariationSettings: archivo(900, 100), fontSize: 46, color: active ? B.lilac : B.white, opacity: on ? 1 : 0, textShadow: "0 4px 0 #000, 0 0 14px rgba(0,0,0,0.8)", transform: `scale(${active ? 1.1 : 1})` }}>
+            <span key={i} style={{ fontFamily: F.display, fontVariationSettings: archivo(900, 100), fontSize: 42, color: active ? B.lilac : B.white, opacity: on ? 1 : 0, textShadow: "0 4px 0 #000, 0 0 14px rgba(0,0,0,0.8)", transform: `scale(${active ? 1.1 : 1})` }}>
               {w}
             </span>
           );

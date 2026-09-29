@@ -100,11 +100,11 @@ export const VEditing: React.FC = () => {
     <AbsoluteFill>
       <VWhip id="whip-edit" y={whip.in} blur={whip.blur}>
         <AbsoluteFill style={{ transform: "translateY(70px)" }}>
-        <VTag idx="01" label="VIDEO EDITING" f={f} start={4} y={226} />
+        <VTag idx="01" label="VIDEO EDITING" f={f} start={4} y={226} out={w2 - 6} />
 
         {/* beat words */}
-        <KWord text="CUT." f={f} start={w0} mode={f >= EDITV.cuts[0] && f < EDITV.cuts[0] + 12 ? "slice" : "slam"} slice={tw(f, [EDITV.cuts[0], EDITV.cuts[0] + 4]) - tw(f, [EDITV.cuts[0] + 6, EDITV.cuts[0] + 12])} size={wordSize("CUT.")} y={290} out={w1 - 2} />
-        <KWord text="GRADE." f={f} start={w1} mode="outlineFill" fill={gradeP} size={wordSize("GRADE.")} y={290} color={B.lavender} stroke={B.lilac} out={w2 - 2} />
+        <KWord text="CUT." f={f} start={w0} mode={f >= EDITV.cuts[0] && f < EDITV.cuts[0] + 12 ? "slice" : "slam"} slice={tw(f, [EDITV.cuts[0], EDITV.cuts[0] + 4]) - tw(f, [EDITV.cuts[0] + 6, EDITV.cuts[0] + 12])} size={wordSize("CUT.")} y={290} out={w1 - 6} />
+        <KWord text="GRADE." f={f} start={w1} mode="outlineFill" fill={gradeP} size={wordSize("GRADE.")} y={290} color={B.lavender} stroke={B.lilac} out={w2 - 6} />
         <KWord
           text="SOUND."
           f={f}
@@ -114,9 +114,9 @@ export const VEditing: React.FC = () => {
           y={290}
           colors={[B.white, B.mist, B.lilac, B.lavender, B.violet, B.white]}
           amp={(i) => Math.min(1, level(g - i * 2, "low") * 1.2 + Math.abs(noise2D("snd", i, f * 0.3)) * 0.35)}
-          out={w3 - 2}
+          out={w3 - 6}
         />
-        <KWord text="MOTION." f={f} start={w3} mode="fly" size={wordSize("MOTION.")} y={290} color={B.white} out={EDITV.chips - 2} />
+        <KWord text="MOTION." f={f} start={w3} mode="fly" size={wordSize("MOTION.")} y={290} color={B.white} out={EDITV.chips - 6} />
         <div style={{ position: "absolute", left: 60, width: 960, top: 318, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16 }}>
           {f >= EDITV.chips &&
             ["Reels & Shorts", "YouTube", "Ads", "Podcasts", "Brand films", "Color grading", "Sound design"].map((c, i) => (
