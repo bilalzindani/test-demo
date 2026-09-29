@@ -71,7 +71,7 @@ The track was chosen by analysis, not guesswork (`scripts/analyze_music.py`): 12
 
 ## 2 · Nosh Video Editing — 53s Vertical (9:16)
 
-**Watch:** [`renders/nosh-video-editing-vertical.mp4`](renders/nosh-video-editing-vertical.mp4) — 1080×1920 · 30 fps · 53 s · H.264 (BT.709) + AAC 256k
+**Watch:** [`renders/nosh-video-editing-vertical.mp4`](renders/nosh-video-editing-vertical.mp4) — 1080×1920 · 30 fps · 53 s · H.264 (BT.709) + AAC 256k · 21 MB · −15.7 LUFS
 
 ![Poster](renders/nosh-video-editing-poster.jpg)
 
@@ -119,7 +119,7 @@ The footage inside the mock-ups (dunes, city, ocean, peaks, the astronaut, the c
 
 The generator also writes a per-frame loudness/low/high envelope (`src/vertical/audioEnvelope.json`). The picture reads it, so the HUD meters and the "SOUND." letters move with the real mix.
 
-**Master:** −15.7 LUFS integrated, ≤ −1.2 dBFS peak (look-ahead limiter), 48 kHz. Delivery uses the same encode as the showreel: `bash scripts/deliver.sh vertical`, with audio re-muxed from the WAV.
+**Master:** −15.7 LUFS integrated, ≤ −1.2 dBFS peak (look-ahead limiter), 48 kHz. Delivery uses the same encode as the showreel: `bash scripts/deliver.sh vertical`, with audio re-muxed from the WAV. The delivery file measures a 0.00 ms offset against the source WAV (cross-correlation at 0:01, 0:20 and 0:47).
 
 ---
 
