@@ -8,8 +8,10 @@
     "build": "remotion bundle",
     "typecheck": "tsc --noEmit",
     "audio": "python3 audio/generate_soundtrack.py",
+    "audio:vertical": "node scripts/export-cues.mjs src/vertical/cues.ts audio/vertical-cues.json && python3 audio/generate_vertical_soundtrack.py",
     "still": "remotion still NoshShowreel",
-    "render": "remotion render NoshShowreel out/nosh-ai-automation-showreel.mp4"
+    "render": "remotion render NoshShowreel out/nosh-ai-automation-showreel.mp4",
+    "render:vertical": "remotion render NoshVideoEditingVertical out/nosh-video-editing-vertical.mp4"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "5.3.0",

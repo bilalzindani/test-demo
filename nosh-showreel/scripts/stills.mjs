@@ -12,6 +12,7 @@ const args = process.argv.slice(2);
 const name = args.shift();
 const scale = Number((args.find((a) => a.startsWith("--scale=")) ?? "--scale=0.5").split("=")[1]);
 const reuse = args.includes("--no-bundle");
+const compId = (args.find((a) => a.startsWith("--comp=")) ?? "--comp=NoshShowreel").split("=")[1];
 const frames = args
   .filter((a) => !a.startsWith("--"))
   .flatMap((a) => {
@@ -30,7 +31,7 @@ const browser = await openBrowser("chrome", {
   browserExecutable: process.env.REMOTION_BROWSER ?? null,
   chromiumOptions: { gl: "swangle" },
 });
-const composition = await selectComposition({ serveUrl: bundleDir, id: "NoshShowreel", puppeteerInstance: browser });
+const composition = await selectComposition({ serveUrl: bundleDir, id: compId, puppeteerInstance: browser });
 const outDir = path.join(root, "out", "stills", name);
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
@@ -54,4 +55,4 @@ const t0 = Date.now();
 await Promise.all([worker(), worker(), worker(), worker()]);
 await browser.close({ silent: true });
 console.log(`rendered ${frames.length} stills in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
-execFileSync("python3", [path.join(root, "scripts", "contact_sheet.py"), outDir, path.join(root, "out", "stills", `${name}.jpg`)], { stdio: "inherit" });
+execFileSync("python3", [path.join(root, "scripts", "contact_sheet.py"), outDir, path.join(root, "out", "stills", `${name}.jpg`), String(composition.height > composition.width ? 6 : 3)], { stdio: "inherit" });

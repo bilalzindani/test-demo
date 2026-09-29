@@ -1,5 +1,6 @@
-// Compile src/lib/cues.ts with esbuild and write audio/cues.json, so the
-// soundtrack generator reads exactly the timings the picture uses.
+// Compile a cue module with esbuild and write its JSON, so the soundtrack
+// generator reads exactly the timings the picture uses.
+// Usage: node scripts/export-cues.mjs [src/lib/cues.ts] [audio/cues.json]
 import { build } from "esbuild";
 import fs from "node:fs";
 import os from "node:os";
@@ -7,9 +8,11 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
+const entry = path.resolve(root, process.argv[2] ?? "src/lib/cues.ts");
+const outFile = path.resolve(root, process.argv[3] ?? "audio/cues.json");
 const tmp = path.join(os.tmpdir(), `cues-${process.pid}.mjs`);
 await build({
-  entryPoints: [path.join(root, "src", "lib", "cues.ts")],
+  entryPoints: [entry],
   bundle: true,
   format: "esm",
   platform: "node",
@@ -18,7 +21,7 @@ await build({
 });
 const { buildCues } = await import(pathToFileURL(tmp).href);
 const data = buildCues();
-fs.mkdirSync(path.join(root, "audio"), { recursive: true });
-fs.writeFileSync(path.join(root, "audio", "cues.json"), JSON.stringify(data, null, 1));
+fs.mkdirSync(path.dirname(outFile), { recursive: true });
+fs.writeFileSync(outFile, JSON.stringify(data, null, 1));
 fs.rmSync(tmp);
-console.log(`wrote audio/cues.json (${data.cues.length} cues)`);
+console.log(`wrote ${path.relative(root, outFile)} (${data.cues.length} cues)`);
